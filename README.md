@@ -1,59 +1,86 @@
-# Aktywator
+AktywatorFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+AktywatorFront to frontendowa aplikacja Angular służąca do aktywacji licencji. Aplikacja łączy się z backendem API w celu generowania i weryfikacji kluczy licencyjnych.
 
-## Development server
+🔧 Wymagania
 
-To start a local development server, run:
+Przed rozpoczęciem pracy upewnij się, że masz zainstalowane:
 
-```bash
+Node.js (zalecana wersja LTS)
+
+Angular CLI (zalecana wersja zgodna z projektem)
+
+Git
+
+📦 Instalacja
+
+Sklonuj repozytorium:
+
+git clone https://github.com/bsdnetpl/AktywatorFront.git
+cd AktywatorFront
+
+Zainstaluj zależności:
+
+npm install
+
+🚀 Uruchamianie aplikacji
+
+Aby uruchomić aplikację w trybie deweloperskim, użyj:
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Domyślnie aplikacja będzie dostępna pod adresem: http://localhost:4200.
 
-## Code scaffolding
+🔄 API Backend
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Aplikacja komunikuje się z backendem, który powinien być uruchomiony pod adresem:
 
-```bash
-ng generate component component-name
-```
+https://localhost:7268/api
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+🔑 Generowanie klucza licencyjnego
 
-```bash
-ng generate --help
-```
+Endpoint: POST /api/License
 
-## Building
+Przykładowe wywołanie:
 
-To build the project run:
+this.licenseService.generateKey({ nip: '1234567890' }).subscribe(response => {
+  console.log(response.key);
+});
 
-```bash
-ng build
-```
+✅ Walidacja klucza licencyjnego
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Endpoint: POST /api/License/validate
 
-## Running unit tests
+Przykładowe wywołanie:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+this.licenseService.checkKey({ nip: '1234567890', licenseKey: 'XXXXX-XXXXX' }).subscribe(response => {
+  console.log(response.isValid);
+});
 
-```bash
-ng test
-```
+📁 Struktura projektu
 
-## Running end-to-end tests
+AktywatorFront/
+│── src/
+│   ├── app/
+│   │   ├── components/  # Komponenty Angular
+│   │   ├── services/    # Serwisy HTTP
+│   │   ├── interfaces/  # Definicje interfejsów
+│   ├── assets/         # Zasoby statyczne
+│   ├── environments/   # Konfiguracje środowiskowe
+│── angular.json        # Konfiguracja Angular CLI
+│── package.json        # Lista zależności npm
+│── README.md           # Ten plik 😉
 
-For end-to-end (e2e) testing, run:
+🎨 Stylizacja
 
-```bash
-ng e2e
-```
+Aplikacja korzysta z Bootstrap do stylizacji komponentów. Jeśli chcesz dostosować wygląd, edytuj plik styles.css lub dodaj własne klasy CSS.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+🛠️ Konfiguracja API
 
-## Additional Resources
+Jeśli backend działa na innym porcie, edytuj LicenseService w src/app/services/license.service.ts:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+private url = 'https://localhost:7268/api/License';
+
+📜 Licencja
+
+Projekt jest udostępniany na licencji MIT.
