@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>Generowanie Klucza Licencyjnego</h2>
+  <input [(ngModel)]="nip" placeholder="Podaj NIP" class="form-control" />
+  <input [(ngModel)]="key" placeholder="Podaj Klucz" class="form-control" />
+  <button (click)="ValidLicenseKey()" class="btn btn-primary">Generuj</button>
+
+  <div *ngIf="Isok" class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Wygenerowany Klucz jest:</h4>
+    <p class="key">{{ Isok }}</p>
+  </div>
+  <div *ngIf="!Isok" class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">Wygenerowany Klucz jest:</h4>
+    <p class="key">{{ Isok }}</p>
+  </div>
+</div>
